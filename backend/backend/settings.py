@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'hexaBlog',
     'autoslug',
     'rest_framework',
+    "corsheaders",
     
     'allauth',
     'allauth.account',
@@ -67,6 +68,8 @@ MIDDLEWARE = [
     # Add the account middleware:
     "allauth.account.middleware.AccountMiddleware",
     #end auth
+    
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -147,3 +150,8 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
  
 ]
+
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",
+# ]
+CORS_ALLOW_ALL_ORIGINS = True 
