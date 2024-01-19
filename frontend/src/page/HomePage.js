@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { Navbar } from '../component/Navbar';
 
 export const HomePage = () => {
   const [posts, setPosts] = useState([]);
@@ -22,6 +23,7 @@ export const HomePage = () => {
 
   return (
     <div>
+      <Navbar/>
       {posts.map((post, index) => (
         <div key={index}>
           {post.title}
