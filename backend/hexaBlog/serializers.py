@@ -9,6 +9,13 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = '__all__'
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email']
+
+
+
 class PostSerializer(serializers.ModelSerializer):
     # Use UserProfileSerializer for the 'author' field
     author = UserProfileSerializer()
