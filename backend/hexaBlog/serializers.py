@@ -5,20 +5,23 @@ from .models import Post, Comment, UserProfile
 
 class UserProfileSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField()
+
     class Meta:
         model = UserProfile
         fields = '__all__'
 
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email','profile_picture']
+        fields = '__all__'
 
 
 
 class PostSerializer(serializers.ModelSerializer):
     # Use UserProfileSerializer for the 'author' field
     author = UserProfileSerializer()
+    username = serializers.CharField(source='author.user.username', read_only=True)
 
     class Meta:
         model = Post

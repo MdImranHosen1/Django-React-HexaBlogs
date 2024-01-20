@@ -11,3 +11,4 @@ urlpatterns = [
     path('<int:post_id>/', views.PostDetails.as_view(), name='PostDetails'),
     path('create_post/', views.CreatePost.as_view(), name='create_post'),
 ]
+    

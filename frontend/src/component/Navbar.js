@@ -5,7 +5,7 @@ import DropdropProfile from './DropdropProfile';
 import DropdownSignIn from './DropdownSignIn';
 
 import DropdownSignup from './DropdownSignup';
-import axios from 'axios';
+
 
 const initialAuthState = {
     isAuthenticated: !!localStorage.getItem('token'),
@@ -19,7 +19,7 @@ export const Navbar = () => {
     const [isDropdownSignIn, setDropdownSignIn] = useState(false);
     const [isDropdownSignup, setDropdownSignup] = useState(false);
 
-
+    // localStorage.clear();
 
     const toggleDropdown = () => {
         setDropdownOpen(!isDropdownOpen);
@@ -46,8 +46,6 @@ export const Navbar = () => {
         }
     }, [authState.isAuthenticated]);
     
-
-
 
     return (
         <nav className='bg-gray-300 border-gray-200 '>

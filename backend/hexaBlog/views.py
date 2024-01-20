@@ -38,7 +38,10 @@ class UserLogin(APIView):
         username=request.data.get('username')
         password=request.data.get('password')
         
-        print(username,password)
+        user = User.objects.get(username=username)
+        useremail = user.email
+        
+        print("useremail :  ",useremail)
         
         if not username or not password:
             return Response({'error': 'Please provide a username and password.'}, status=status.HTTP_400_BAD_REQUEST)
@@ -47,7 +50,7 @@ class UserLogin(APIView):
 
         if user is not None:
             
-            return Response({'message': 'Login successful.'}, status=status.HTTP_200_OK)
+            return Response({'message': 'Login successful.','username':username,'email':useremail }, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'Invalid username or password.'}, status=status.HTTP_401_UNAUTHORIZED)
             

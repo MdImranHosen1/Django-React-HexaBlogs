@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Navbar } from '../component/Navbar';
+import { BlogCard } from '../component/BlogCard';
 
 export const HomePage = () => {
   const [posts, setPosts] = useState([]);
@@ -23,13 +24,18 @@ export const HomePage = () => {
 
   return (
     <div>
-      <Navbar/>
-      {posts.map((post, index) => (
-        <div key={index}>
-          {post.title}
-          <Link to={`/${post.id}`}>Click</Link>
-        </div>
-      ))}
+      <Navbar />
+      <div className='flex flex-wrap'>
+        {posts.map((post, index) => {
+          console.log(post); // Add this line for debugging
+          return (
+            <div key={index} className='w-1/2'>
+              
+             <BlogCard post={post}/>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
