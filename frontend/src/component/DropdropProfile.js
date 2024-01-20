@@ -2,7 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 export default function DropdropProfile(props) {
-    console.log(props)
+    
+
+
     return (
         <div className="relative">
             {/* Profile with dropdown */}

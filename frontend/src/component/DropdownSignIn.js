@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate   } from 'react-router-dom';
 
 
 export default function DropdownSignIn(props) {
-
+    let navigate = useNavigate();
     const handleCreateAccountClick = () => {
         // Call both functions
         props.toggleDropdownSignup();
@@ -28,19 +28,21 @@ export default function DropdownSignIn(props) {
         console.log(formData)
 
         try {
-            // Perform the sign-in logic here
+        
             const signInResponse = await axios.post('http://127.0.0.1:8000/login/', formData);
             console.log(signInResponse)
 
             if (signInResponse.status === 200) {
                 console.log('Sign In successful');
-                // Add logic to handle successful sign-in
+                props.setAuthState({isAuthenticated:true,userData:signInResponse.data});
+
+                props.toggleDropdownSignIn()
+                navigate('/');
+                
             } else {
                 console.error('Sign In failed');
-                // Add logic to handle failed sign-in
             }
         } catch (error) {
-            // Handle network or other errors
             console.error('Error during sign-in:', error);
         }
     };

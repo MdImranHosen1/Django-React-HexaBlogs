@@ -5,7 +5,12 @@ import DropdropProfile from './DropdropProfile';
 import DropdownSignIn from './DropdownSignIn';
 
 import DropdownSignup from './DropdownSignup';
+import axios from 'axios';
 
+const initialAuthState = {
+    isAuthenticated: !!localStorage.getItem('token'),
+    userData: null,
+};
 
 
 export const Navbar = () => {
@@ -13,6 +18,9 @@ export const Navbar = () => {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const [isDropdownSignIn, setDropdownSignIn] = useState(false);
     const [isDropdownSignup, setDropdownSignup] = useState(false);
+
+
+
     const toggleDropdown = () => {
         setDropdownOpen(!isDropdownOpen);
     };
@@ -24,8 +32,20 @@ export const Navbar = () => {
     };
 
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [userData, setUserData] = useState(null);
+    const [authState, setAuthState] = useState(initialAuthState);
+
+
+    useEffect(() => {
+        if (authState.isAuthenticated === true) {
+            localStorage.setItem('authState', JSON.stringify(authState));
+        } else {
+            const storedAuthState = localStorage.getItem('authState');
+            if (storedAuthState) {
+                setAuthState(JSON.parse(storedAuthState));
+            }
+        }
+    }, [authState.isAuthenticated]);
+    
 
 
 
@@ -46,14 +66,15 @@ export const Navbar = () => {
                     </div>
                     <input type="text" id="search-navbar" className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Search..." />
                 </div>
-                {isAuthenticated ? (<DropdropProfile isDropdownOpen={isDropdownOpen} toggleDropdown={toggleDropdown} />) :
+                {authState.isAuthenticated ? (<DropdropProfile isDropdownOpen={isDropdownOpen} toggleDropdown={toggleDropdown} authState={authState} />) :
                     (<div>
 
-                        <button className=' bg-gray-800 text-white rounded-md w-20 h-8 text-sm font-mono ' onClick={ toggleDropdownSignIn }>
+                        <button className=' bg-gray-800 text-white rounded-md w-20 h-8 text-sm font-mono ' onClick={toggleDropdownSignIn}>
                             Sign In
                         </button>
-                        <DropdownSignIn isDropdownSignIn={isDropdownSignIn} toggleDropdownSignIn={toggleDropdownSignIn} toggleDropdownSignup={toggleDropdownSignup}/>
-                        <DropdownSignup  isDropdownSignup={isDropdownSignup} toggleDropdownSignup={toggleDropdownSignup} toggleDropdownSignIn={toggleDropdownSignIn} />
+                        <DropdownSignIn isDropdownSignIn={isDropdownSignIn} toggleDropdownSignIn={toggleDropdownSignIn} toggleDropdownSignup={toggleDropdownSignup} setAuthState={setAuthState} />
+
+                        <DropdownSignup isDropdownSignup={isDropdownSignup} toggleDropdownSignup={toggleDropdownSignup} toggleDropdownSignIn={toggleDropdownSignIn} />
 
                     </div>)
                 }
