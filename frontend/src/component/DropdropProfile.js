@@ -1,11 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import defaultProfile from '../images/profile.png';
 
 export default function DropdropProfile(props) {
-    
+
     // console.log(props.authState.userData.username)
     // console.log(props.authState.userData.email)
+
+    const navigate = useNavigate();
 
     const handleSignoutClick=async ()=>{
         localStorage.clear();
@@ -14,14 +17,16 @@ export default function DropdropProfile(props) {
         
             const signoutResponse = await axios.get('http://127.0.0.1:8000/logout/');
             console.log(signoutResponse)
+            navigate('/');
             window.location.reload();
+            
 
           
         } catch (error) {
             console.error('Error during signout:', error);
         }
     }
-   
+
 
 
     return (
@@ -33,7 +38,7 @@ export default function DropdropProfile(props) {
                 onClick={props.toggleDropdown}
             >
                 <span className="sr-only">Open user menu</span>
-                <img className="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo" />
+                <img className="w-8 h-8 rounded-full outline outline-1 outline-cyan-700" src={defaultProfile} alt="user photo" />
             </button>
             {/* Dropdown menu */}
             {props.isDropdownOpen && (

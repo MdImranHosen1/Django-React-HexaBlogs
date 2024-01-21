@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import hexaLogo from '../images/hexaLogo.png';
+import addButton from '../images/addBlog.png';
 import DropdropProfile from './DropdropProfile';
 import DropdownSignIn from './DropdownSignIn';
 
 import DropdownSignup from './DropdownSignup';
+import CreateBlog from './CreateBlog';
 
 
 const initialAuthState = {
@@ -45,11 +47,11 @@ export const Navbar = () => {
             }
         }
     }, [authState.isAuthenticated]);
-    
+
 
     return (
         <nav className='bg-gray-300 border-gray-200 '>
-            <div className=' flex max-w-screen-xl flex-wrap justify-between items-center mx-auto p-1'>
+            <div className=' flex max-w-full flex-wrap justify-between items-center mx-auto p-1'>
                 <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src={hexaLogo} className="h-8" alt="hexaLogo" />
                     <span className="self-center text-2xl font-semibold whitespace-nowrap">HexaBlog</span>
@@ -64,19 +66,32 @@ export const Navbar = () => {
                     </div>
                     <input type="text" id="search-navbar" className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Search..." />
                 </div>
-                {authState.isAuthenticated ? (<DropdropProfile isDropdownOpen={isDropdownOpen} toggleDropdown={toggleDropdown} authState={authState} />) :
-                    (<div>
 
-                        <button className=' bg-gray-800 text-white rounded-md w-20 h-8 text-sm font-mono ' onClick={toggleDropdownSignIn}>
-                            Sign In
-                        </button>
-                        <DropdownSignIn isDropdownSignIn={isDropdownSignIn} toggleDropdownSignIn={toggleDropdownSignIn} toggleDropdownSignup={toggleDropdownSignup} setAuthState={setAuthState} />
+                <div className=' flex '>
 
-                        <DropdownSignup isDropdownSignup={isDropdownSignup} toggleDropdownSignup={toggleDropdownSignup} toggleDropdownSignIn={toggleDropdownSignIn} />
+                    <Link to='/create_blog'>
+                        <div className='flex justify-center mr-3 cursor-pointer'>
+                            <img src={addButton} alt='Add Button' className='w-8 h-8' />
+                        </div>
+                    </Link>
 
-                    </div>)
-                }
 
+
+                    {authState.isAuthenticated ? (<DropdropProfile isDropdownOpen={isDropdownOpen} toggleDropdown={toggleDropdown} authState={authState} />) :
+                        (<div>
+
+                            <button className=' bg-gray-800 text-white rounded-md w-20 h-8 text-sm font-mono ' onClick={toggleDropdownSignIn}>
+                                Sign In
+                            </button>
+                            <DropdownSignIn isDropdownSignIn={isDropdownSignIn} toggleDropdownSignIn={toggleDropdownSignIn} toggleDropdownSignup={toggleDropdownSignup} setAuthState={setAuthState} />
+
+                            <DropdownSignup isDropdownSignup={isDropdownSignup} toggleDropdownSignup={toggleDropdownSignup} toggleDropdownSignIn={toggleDropdownSignIn} />
+
+                        </div>)
+                    }
+
+
+                </div>
             </div>
         </nav>
     );

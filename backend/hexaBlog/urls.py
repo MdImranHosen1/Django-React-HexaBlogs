@@ -6,9 +6,11 @@ urlpatterns = [
     path('register/', views.UserRegistration.as_view(), name='user_registration'),
     path('login/', views.UserLogin.as_view(), name='user_login'),
     path('logout/', views.UserLogout.as_view(), name='user_logout'),
-    path('<str:username>/', views.UserDetails.as_view(), name='user_details'), 
+    path('user/<str:username>/', views.UserDetails.as_view(), name='user_details'), 
     path('', views.PostList.as_view()),
-    path('<int:post_id>/', views.PostDetails.as_view(), name='PostDetails'),
+    path('blog/<int:post_id>/', views.PostDetails.as_view(), name='PostDetails'),
     path('create_post/', views.CreatePost.as_view(), name='create_post'),
+
+
 ]
-    
+   

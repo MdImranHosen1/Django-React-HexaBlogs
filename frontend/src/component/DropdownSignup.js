@@ -29,7 +29,7 @@ export default function DropdownSignup(props) {
 
         try {
             // Check if username is available
-            const usernameEndpoint = `http://127.0.0.1:8000/${formData.username}/`;
+            const usernameEndpoint = `http://127.0.0.1:8000/user/${formData.username}/`;
 
             try {
                 await axios.get(usernameEndpoint);

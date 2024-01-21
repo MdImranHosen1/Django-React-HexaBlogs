@@ -1,6 +1,37 @@
 import React from 'react';
 
 export const BlogCard = (props) => {
+    function formatEditDate(editDate) {
+        try {
+            const currentDate = new Date();
+            const editDateObj = new Date(editDate);
+    
+            const timeDifference = currentDate - editDateObj;
+            const seconds = Math.floor(timeDifference / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+            const months = Math.floor(days / 30);
+            const years = Math.floor(months / 12);
+    
+            if (years > 0) {
+                return `${years} ${years === 1 ? 'year' : 'years'} ago`;
+            } else if (months > 0) {
+                return `${months} ${months === 1 ? 'month' : 'months'} ago`;
+            } else if (days > 0) {
+                return `${days} ${days === 1 ? 'day' : 'days'} ago`;
+            } else if (hours > 0) {
+                return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`;
+            } else if (minutes > 0) {
+                return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} ago`;
+            } else {
+                return 'Just now';
+            }
+        } catch (error) {
+            // Handle parsing errors
+            return `Error: ${error.message}`;
+        }
+    }
   return (
     <section className="bg-white">
       <div className="py-4 px-2  mx-auto max-w-screen-xl lg:py-4 lg:px-4">
@@ -13,15 +44,15 @@ export const BlogCard = (props) => {
                 </svg>
                 Tutorial
               </span>
-              <span className="text-sm">14 days ago</span>
+              <span className="text-sm">{formatEditDate(props.post.edit_date)}</span>
             </div>
             <h2 className="mb-2 text-xl font-bold tracking-tight text-gray-900"><a href="#">{props.post.title}</a></h2>
-            <p className="mb-5 font-sans text-sm text-gray-700 ">{props.post.content.slice(0,250)}<bold>...continue</bold></p>
+            <p className="mb-5 font-sans text-sm text-gray-700 ">{props.post.content.slice(0,250)}...continue</p>
             <div className="flex justify-between items-center">
               <div className="flex items-center space-x-4">
-                <img className="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
+                <img className="w-7 h-7 rounded-full" src={props.post.author.profile_picture} alt="Jese Leos avatar" />
                 <span className="font-medium">
-                  Jese Leos
+                  {props.post.author.user}
                 </span>
               </div>
               <a href="#" className="inline-flex items-center font-medium text-primary-600 text-gray-700 hover:underline hover:text-gray-800">

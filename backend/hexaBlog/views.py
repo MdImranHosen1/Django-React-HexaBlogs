@@ -6,9 +6,12 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from .models import Post, Comment, UserProfile
-from .serializers import PostSerializer, CommentSerializer, UserProfileSerializer,UserSerializer
+from .serializers import PostSerializer, CommentSerializer, UserProfileSerializer
 from rest_framework.decorators import parser_classes
 from rest_framework.parsers import JSONParser
+from rest_framework import generics
+from rest_framework.decorators import api_view
+
 
 class UserRegistration(APIView):
     def post(self, request, format=None):
@@ -92,7 +95,9 @@ class PostDetails(APIView):
         post=get_object_or_404(Post,pk=post_id)
         post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
+
+
+@parser_classes([JSONParser]) 
 class CreatePost(APIView):
     
     def post(self, request, format=None):
@@ -102,8 +107,3 @@ class CreatePost(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    
-    
-
-
-

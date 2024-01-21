@@ -17,7 +17,7 @@ class UserProfile(models.Model):
 class Post(models.Model):
     title=models.CharField(max_length=300)
     content=models.TextField()
-    author=models.ForeignKey(User,on_delete=models.CASCADE)
+    author=models.ForeignKey(UserProfile,on_delete=models.CASCADE)
     slug = AutoSlugField(populate_from='title', unique=True) 
     published_date=models.DateTimeField(default=timezone.now)
     edit_date=models.DateTimeField(null=True,blank=True)

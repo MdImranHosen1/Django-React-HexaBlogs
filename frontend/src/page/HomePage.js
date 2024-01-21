@@ -24,7 +24,7 @@ export const HomePage = () => {
 
   return (
     <div>
-      <Navbar />
+
       <div className='flex flex-wrap'>
         {posts.map((post, index) => {
           console.log(post); // Add this line for debugging
